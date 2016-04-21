@@ -76,3 +76,5 @@ This produces reads for each belongs to each clusters to the clusters folder.
 
     python scripts/run-rj-each-cluster.py   clusters   scripts/run-rj-on-filtered-reads.py cluster-each-rj
     python scripts/crisprfinder-rj.py  clusters rj/mock.readgroups.txt cluster-each-rj/rj 30 50
+
+Here `clusters` is the folder that contains all the fasta sequences of each cluster generated in the previous step. `30` is the size of overlap to generate the overlap graph in the initial assemble step. `50` is the confident edge size.
