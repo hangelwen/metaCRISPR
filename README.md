@@ -51,7 +51,7 @@ This command identify CRISPR reads from input read file test.fa. Command line op
 If one uses N threads to run the identification program, it will generate N sets of files whose names all starts with the prefix set by user. To run the next step, concatenate N files with name prefix.{0-N-1}.filtered.fa together to form one file:
 
     cat prefix.*.filtered.fa > filtered.reads.fa
-
+~/CRISPRFinder-rsycn
 This file contains all filtered reads.
 
 ## 2.2 CRISPR reads clustering
@@ -66,8 +66,13 @@ There are three required parameters:
 
 After generating the clusters, using the following command to filter the clusters:
 
-    python scripts/combine-and-filter-clusters.py rj/bowtie/bowtie.result.sam rj/rj/mock.clusters.0.txt rj/rj/mock.reads.filtered.fa rj/rj/mock.graph.rename.txt filtered.reads.fa
+    mkdir clusters
+    cd clusters
+    python scripts/combine-and-filter-clusters.py ../rj/bowtie/bowtie.result.sam ../rj/rj/mock.clusters.0.txt ../rj/rj/mock.reads.filtered.fa ../rj/rj/mock.graph.rename.txt .../filtered.reads.fa
+
+This produces reads for each belongs to each clusters to the clusters folder.
 
 ## 2.3 Assembly
 
-    python scripts/crisprfinder-rj.py  tp-clusters rj/0714.readgroups.txt cluster-each-rj/rj 30 50
+    python scripts/run-rj-each-cluster.py   clusters   scripts/run-rj-on-filtered-reads.py cluster-each-rj
+    python scripts/crisprfinder-rj.py  clusters rj/mock.readgroups.txt cluster-each-rj/rj 30 50
